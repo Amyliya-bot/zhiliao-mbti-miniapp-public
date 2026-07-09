@@ -1,0 +1,44 @@
+<!-- 选择测试方式 -->
+<view class="page-wrap">
+
+  <view class="status-spacer"></view>
+
+  <!-- Nav -->
+  <view class="quiz-nav">
+    <view class="nav-back" bindtap="goBack">‹</view>
+    <text class="nav-title">选择测试方式</text>
+  </view>
+
+  <!-- Options -->
+  <view class="scroll-content" style="padding:48rpx 40rpx">
+    <text class="select-desc">两种测试方式使用不同的题库，但结果判定逻辑一致。题目越多结果越准确。</text>
+
+    <!-- 100 Questions -->
+    <view class="select-card tap-active" bindtap="goToQuiz100">
+      <view class="select-card-badge deep">深度测试</view>
+      <text class="select-card-title">100 道题</text>
+      <text class="select-card-desc">约 10-15 分钟 · 结果更加准确</text>
+      <view class="select-card-features">
+        <text class="feature-item">每维度 25 题，采样更充分</text>
+        <text class="feature-item">题目场景更丰富，覆盖更全面</text>
+        <text class="feature-item">倾向程度分级更精确</text>
+      </view>
+    </view>
+
+    <!-- 40 Questions -->
+    <view class="select-card tap-active" bindtap="goToQuiz40">
+      <view class="select-card-badge fast">快速测试</view>
+      <text class="select-card-title">40 道题</text>
+      <text class="select-card-desc">约 5-8 分钟 · 快速出结果</text>
+      <view class="select-card-features">
+        <text class="feature-item">每维度 10 题，快速完成</text>
+        <text class="feature-item">题目精简，适合碎片时间</text>
+        <text class="feature-item">结果与深度测试一致</text>
+      </view>
+    </view>
+
+    <text class="select-note">※ 两种测试的判断标准和结果类型完全相同</text>
+    <text class="select-disclaimer">※ 测试结果仅供娱乐参考，不构成专业心理评估</text>
+  </view>
+
+</view>
