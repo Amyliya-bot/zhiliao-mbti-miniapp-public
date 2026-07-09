@@ -1,0 +1,60 @@
+<!-- 报告 Tab - 历史记录 -->
+<view class="page-wrap">
+
+  <view class="status-spacer"></view>
+
+  <!-- Header -->
+  <view class="report-header">
+    <text class="report-header-title">报告</text>
+    <text class="report-header-sub">你的人格成长记录</text>
+  </view>
+
+  <!-- Trim Notice -->
+  <view class="trim-notice">
+    <text class="trim-notice-text">报告记录仅显示最近 30 条测试结果</text>
+  </view>
+
+  <!-- Content -->
+  <scroll-view scroll-y="true" class="report-scroll">
+
+    <!-- Empty State -->
+    <view class="empty-state" wx:if="{{!hasHistory}}">
+      <view class="empty-icon">📋</view>
+      <text class="empty-title">还没有记录</text>
+      <text class="empty-desc">去跟知聊聊一聊吧\n完成对话就会有结果</text>
+      <button class="empty-cta" bindtap="goToHall">开始对话 →</button>
+    </view>
+
+    <!-- History List -->
+    <view class="history-list" wx:else>
+      <view class="history-item-wrap" wx:for="{{history}}" wx:key="_id">
+        <!-- Delete button behind -->
+        <view class="delete-btn" bindtap="deleteItem" data-index="{{index}}">删除</view>
+        <!-- History item that slides -->
+        <view
+          class="history-item {{item.swiped ? 'swiped' : ''}}"
+          bindtouchstart="onTouchStart"
+          catchtouchmove="onTouchMove"
+          bindtouchend="onTouchEnd"
+          data-index="{{index}}"
+        >
+          <view class="history-type-badge">{{item.type}}</view>
+          <view class="history-info">
+            <view class="history-top">
+              <text class="history-name">"{{item.name}}"</text>
+            </view>
+            <view class="history-bars">
+              <view class="mini-bar" wx:for="{{item.dims}}" wx:key="index"><view class="mini-bar-fill" style="width:{{barsAnimate ? item : 0}}%"></view></view>
+            </view>
+            <text class="history-date">{{item.date}}</text>
+          </view>
+          <view class="entry-arrow">›</view>
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  <!-- Tab Bar -->
+  <include src="../../templates/tabbar.wxml"/>
+</view>
