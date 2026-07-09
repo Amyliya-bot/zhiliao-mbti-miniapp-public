@@ -1,0 +1,18 @@
+{
+  "envId": "your-cloudbase-env-id",
+  "functionRoot": "cloudfunctions",
+  "functions": [
+    {
+      "name": "chatAI",
+      "timeout": 60,
+      "runtime": "Nodejs18.15",
+      "installDependency": true
+    },
+    {
+      "name": "analyzeMBTI",
+      "timeout": 60,
+      "runtime": "Nodejs18.15",
+      "installDependency": true
+    }
+  ]
+}
