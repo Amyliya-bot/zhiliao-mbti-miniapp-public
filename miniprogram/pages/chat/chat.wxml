@@ -1,0 +1,72 @@
+<!-- 对话页 - AI对话测试 (带打字机效果) -->
+<view class="page-wrap page-wrap-white">
+
+  <view class="status-spacer"></view>
+
+  <!-- Nav -->
+  <view class="chat-nav">
+    <view class="nav-back" bindtap="goBack">‹</view>
+    <text class="nav-title">知聊</text>
+  </view>
+
+  <!-- Progress -->
+  <view class="chat-progress">
+    <view class="progress-top">
+      <text class="progress-label">{{chatComplete ? '对话完成' : '对话中'}} · 场景 {{sceneIndex}}/{{totalScenes}}</text>
+      <text class="progress-scene">{{currentScene}}</text>
+    </view>
+    <view class="progress-bar"><view class="progress-fill" style="width:{{sceneProgress}}%"></view></view>
+    <text class="daily-counter">今日 {{dailyUsed}}/{{dailyLimit}}</text>
+  </view>
+
+  <!-- Chat Messages -->
+  <scroll-view class="chat-msgs" scroll-y="true" scroll-into-view="{{scrollAnchor}}" scroll-with-animation="true">
+    <view wx:for="{{messages}}" wx:key="index" class="msg-row {{item.role}}">
+      <block wx:if="{{item.role === 'system'}}">
+        <view class="scene-complete">
+          <text class="scene-tag">{{item.text}}</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view wx:if="{{item.role === 'ai'}}" class="avatar">知</view>
+        <view class="{{item.role === 'ai' ? 'bubble-ai' : 'bubble-user'}}">
+          <block wx:if="{{item.role === 'ai'}}">
+            <text>{{item.displayText || item.text}}</text>
+            <text wx:if="{{item.showCursor}}" class="typing-cursor">|</text>
+          </block>
+          <view wx:else class="bubble-txt">{{item.displayText || item.text}}</view>
+        </view>
+      </block>
+    </view>
+
+    <!-- Typing Indicator (only during API wait, not during message typing) -->
+    <view wx:if="{{isTyping && !typingMessageActive}}" class="msg-row ai">
+      <view class="avatar">知</view>
+      <view class="typing-indicator">
+        <view class="typing-dot"></view>
+        <view class="typing-dot"></view>
+        <view class="typing-dot"></view>
+      </view>
+    </view>
+
+    <view id="a" style="height:1rpx"></view>
+    <view id="b" style="height:1rpx"></view>
+  </scroll-view>
+
+  <!-- Input Bar (before chat completes) -->
+  <view class="chat-input-bar" wx:if="{{!chatComplete}}">
+    <view class="input-wrap">
+      <input class="chat-input" placeholder="输入消息..." placeholder-style="color:#C7C7CC" value="{{inputValue}}" bindinput="onInput" bindfocus="onInputFocus" disabled="{{isTyping}}" maxlength="200" adjust-position="{{false}}" />
+      <text class="input-counter" wx:if="{{inputValue.length > 120}}">{{inputValue.length}}/200</text>
+    </view>
+    <view class="send-btn {{inputValue.trim() ? '' : 'disabled'}}" bindtap="sendMessage">→</view>
+  </view>
+
+  <!-- Keyboard spacer -->
+  <view style="height: {{keyboardHeight}}px; flex-shrink: 0;"></view>
+
+  <!-- Result Button (after chat completes) -->
+  <view class="chat-complete-bar" wx:if="{{chatComplete}}">
+    <view class="complete-btn {{resultGenerating ? 'disabled' : ''}}" bindtap="goToResult">{{resultGenerating ? '正在生成结果...' : '查看测试结果'}}</view>
+  </view>
+</view>
