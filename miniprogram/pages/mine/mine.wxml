@@ -1,0 +1,75 @@
+<!-- 我的 Tab - 个人中心 -->
+<view class="page-wrap">
+
+  <view class="status-spacer"></view>
+
+  <!-- Header -->
+  <view class="mine-header">
+    <text class="mine-header-title">我的</text>
+  </view>
+
+  <!-- Content -->
+  <view class="scroll-content" style="padding:32rpx 40rpx">
+
+    <!-- Stats -->
+    <view class="stats-card">
+      <view class="stat-item">
+        <text class="stat-num">{{testCount}}</text>
+        <text class="stat-label">测试次数</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-num">{{lastType || '-'}}</text>
+        <text class="stat-label">最近类型</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-num">{{shareCount}}</text>
+        <text class="stat-label">分享次数</text>
+      </view>
+    </view>
+
+    <!-- Menu -->
+    <view class="menu-card">
+      <view class="menu-item" bindtap="goToReport">
+        <view class="menu-icon">📊</view>
+        <text class="menu-label">测试记录</text>
+        <view class="entry-arrow">›</view>
+      </view>
+      <view class="menu-divider"></view>
+      <button class="menu-item menu-btn" open-type="share">
+        <view class="menu-icon">📤</view>
+        <text class="menu-label">分享给好友</text>
+        <view class="entry-arrow">›</view>
+      </button>
+      <view class="menu-divider"></view>
+      <button class="menu-item menu-btn" open-type="feedback">
+        <view class="menu-icon">💬</view>
+        <text class="menu-label">反馈建议</text>
+        <view class="entry-arrow">›</view>
+      </button>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="openPrivacy">
+        <view class="menu-icon">🔒</view>
+        <text class="menu-label">隐私政策</text>
+        <view class="entry-arrow">›</view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="settings">
+        <view class="menu-icon">⚙️</view>
+        <text class="menu-label">设置</text>
+        <view class="entry-arrow">›</view>
+      </view>
+    </view>
+
+    <!-- Version -->
+    <view class="version-info">
+      <text class="version-text">知聊 v1.0.0</text>
+      <text class="version-sub">用 AI 读懂你的性格</text>
+    </view>
+
+  </view>
+
+  <!-- Tab Bar -->
+  <include src="../../templates/tabbar.wxml"/>
+</view>
