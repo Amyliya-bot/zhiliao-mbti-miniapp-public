@@ -1,0 +1,176 @@
+<!-- 完整报告页 - 白底 + 丰富动效 + 底部弹出面板 -->
+<view class="page-wrap page-wrap-white">
+
+  <!-- Hidden Canvas -->
+  <canvas type="2d" id="shareCanvas" class="share-canvas"></canvas>
+
+  <!-- Header -->
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">‹</view>
+    <text class="header-title">完整报告</text>
+    <view class="header-spacer"></view>
+  </view>
+
+  <!-- Scroll Content -->
+  <scroll-view scroll-y class="report-scroll">
+
+    <!-- Hero -->
+    <view class="hero">
+      <view class="hero-badge">{{typeCode}}</view>
+      <text class="hero-name">"{{typeName}}"</text>
+      <view class="hero-meta">
+        <text class="hero-tag group">{{groupName}}</text>
+        <text class="hero-tag en">{{typeNameEn}}</text>
+      </view>
+    </view>
+
+    <!-- Dimension Bars -->
+    <view class="dim-wrap dim-reveal {{dimVisible ? 'visible' : ''}}">
+      <view class="sec-head">
+        <view class="sec-dot"></view>
+        <text class="sec-label">维度分析</text>
+      </view>
+      <view class="dim-bars">
+        <view class="dim-row" wx:for="{{dimBars}}" wx:key="index">
+          <view class="dim-label l">
+            <text>{{item.leftLabel}}</text>
+            <text class="dim-pct">{{item.leftPct}}%</text>
+          </view>
+          <view class="dim-track">
+            <view class="dim-fill d{{index}}" style="width:{{barsReady ? item.barPct : 0}}%"></view>
+          </view>
+          <view class="dim-label r">
+            <text>{{item.rightLabel}}</text>
+            <text class="dim-pct">{{item.rightPct}}%</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Impression — Dark Full Card -->
+    <view class="imp-card imp-reveal {{impVisible ? 'visible' : ''}}">
+      <text class="imp-label">主观印象</text>
+      <text class="imp-text">{{impression}}</text>
+    </view>
+
+    <!-- Core Traits — 2-col Grid -->
+    <view class="traits-wrap traits-reveal {{traitsVisible ? 'visible' : ''}}">
+      <view class="sec-head">
+        <view class="sec-dot"></view>
+        <text class="sec-label">核心特质</text>
+      </view>
+      <view class="traits-grid">
+        <view class="trait-chip {{index === 0 ? 'first' : ''}}" wx:for="{{traitList}}" wx:key="index">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- Strengths / Weaknesses — Two Column -->
+    <view class="double-col col-reveal {{colVisible ? 'visible' : ''}}">
+      <view class="col-card strengths" bindtap="openSheet" data-key="strengths">
+        <view class="col-icon">💪</view>
+        <text class="col-title">性格优点</text>
+        <view class="mini-item" wx:for="{{strengthsPreviews}}" wx:key="index">
+          <text class="mini-title">{{item.title}}</text>
+          <text class="mini-desc">{{item.desc}}</text>
+        </view>
+        <text class="view-more">查看全部 5 项 ›</text>
+      </view>
+      <view class="col-card weaknesses" bindtap="openSheet" data-key="weaknesses">
+        <view class="col-icon">🔍</view>
+        <text class="col-title">性格缺点</text>
+        <view class="mini-item" wx:for="{{weaknessesPreviews}}" wx:key="index">
+          <text class="mini-title">{{item.title}}</text>
+          <text class="mini-desc">{{item.desc}}</text>
+        </view>
+        <text class="view-more">查看全部 5 项 ›</text>
+      </view>
+    </view>
+
+    <!-- Career Section -->
+    <view class="career-wrap career-reveal {{careerVisible ? 'visible' : ''}}">
+      <view class="sec-head">
+        <view class="sec-dot"></view>
+        <text class="sec-label">职业偏好</text>
+      </view>
+      <view class="career-tags">
+        <text class="career-tag {{index % 2 === 0 ? 'dark' : ''}}" wx:for="{{careerList}}" wx:key="index">{{item}}</text>
+      </view>
+      <view class="career-note">
+        <text class="note-icon">⚠️</text>
+        <text class="note-text">{{careerAvoid}}</text>
+      </view>
+      <view class="career-tip">
+        <text class="tip-text">{{careerDevTip}}</text>
+      </view>
+    </view>
+
+    <!-- Social + Growth — Two Column -->
+    <view class="info-row info-reveal {{infoVisible ? 'visible' : ''}}">
+      <view class="info-card" bindtap="openSheet" data-key="social">
+        <text class="info-title">🤝 社交与人际</text>
+        <text class="info-text">{{social}}</text>
+        <text class="tap-hint">点击查看完整</text>
+      </view>
+      <view class="info-card" bindtap="openSheet" data-key="growth">
+        <text class="info-title">🌱 成长建议</text>
+        <text class="info-text">{{growthText}}</text>
+        <text class="tap-hint">点击查看完整</text>
+      </view>
+    </view>
+
+    <view style="height:40rpx"></view>
+
+    <!-- Bottom Buttons -->
+    <view class="btn-section {{btnVisible ? 'visible' : ''}}">
+      <view class="btn-pri" bindtap="generateShareCard">生成分享图</view>
+      <button class="btn-outline-share" open-type="share">分享给朋友</button>
+      <view class="btn-outline" bindtap="goHome">返回主页</view>
+      <text class="disc">AI 测试结果仅供参考</text>
+    </view>
+
+  </scroll-view>
+
+  <!-- Sheet Overlay -->
+  <view class="sheet-overlay {{sheetVisible ? 'show' : ''}}" bindtap="closeSheet" catchtouchmove="noop"></view>
+
+  <!-- Bottom Sheet -->
+  <view class="bottom-sheet {{sheetVisible ? 'show' : ''}} {{sheetClosing ? 'closing' : ''}}">
+    <view class="sheet-handle-wrap" bindtouchstart="onSheetTouchStart" bindtouchmove="onSheetTouchMove" bindtouchend="onSheetTouchEnd">
+      <view class="sheet-handle"></view>
+    </view>
+    <text class="sheet-title">{{sheetTitle}}</text>
+    <scroll-view scroll-y class="sheet-body" show-scrollbar="{{false}}">
+
+      <!-- Strengths / Weaknesses -->
+      <view wx:if="{{sheetKey === 'strengths' || sheetKey === 'weaknesses'}}">
+        <view class="sheet-item" wx:for="{{sheetItems}}" wx:key="index">
+          <text class="sheet-item-title">{{item.title}}</text>
+          <text class="sheet-item-desc">{{item.desc}}</text>
+        </view>
+      </view>
+
+      <!-- Social -->
+      <view wx:elif="{{sheetKey === 'social'}}">
+        <text class="sheet-text">{{sheetData}}</text>
+      </view>
+
+      <!-- Growth -->
+      <view wx:elif="{{sheetKey === 'growth'}}">
+        <text class="sheet-bullet" wx:for="{{sheetData}}" wx:key="index">— {{item}}</text>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <!-- Share Preview Overlay -->
+  <view class="share-preview-mask" wx:if="{{showSharePreview}}" bindtap="closeSharePreview">
+    <view class="share-preview-card" catchtap="noop">
+      <image src="{{shareImagePath}}" class="share-preview-img" mode="widthFix"></image>
+      <view class="share-preview-btns">
+        <view class="sp-btn sp-btn-save" bindtap="saveShareImage">保存到相册</view>
+        <view class="sp-btn sp-btn-cancel" bindtap="closeSharePreview">关闭</view>
+      </view>
+    </view>
+  </view>
+
+</view>
