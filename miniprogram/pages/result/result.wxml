@@ -1,0 +1,136 @@
+<!-- 结果页 -->
+<view class="page-wrap page-wrap-black">
+
+  <!-- Ambient glow -->
+  <view class="glow glow-top"></view>
+  <view class="glow glow-bot"></view>
+
+  <!-- Type Hero -->
+  <view class="hero fade-in d0">
+    <view class="type-badge">{{resultType}}</view>
+    <text class="type-name">{{resultName}}人格</text>
+    <text class="type-quote">{{resultDesc}}</text>
+  </view>
+
+  <!-- Dimension Bars -->
+  <view class="dims-block fade-in d1">
+    <view class="dims-header">
+      <view class="dims-header-line"></view>
+      <text class="dims-header-label">维度分析</text>
+      <view class="dims-header-line"></view>
+    </view>
+
+    <!-- I / E -->
+    <view class="dim-group">
+      <view class="dim-row">
+        <view class="dim-info dim-info-left">
+          <text class="dim-pole">内向 I</text>
+          <text class="dim-pct">{{pI}}%</text>
+        </view>
+        <view class="dim-track">
+          <view class="dim-fill dim-fill-white" style="width:{{barI}}%"></view>
+          <view class="dim-fill dim-fill-dark" style="width:{{barE}}%"></view>
+        </view>
+        <view class="dim-info dim-info-right">
+          <text class="dim-pct">{{pE}}%</text>
+          <text class="dim-pole">外向 E</text>
+        </view>
+      </view>
+      <view class="dim-borderline" wx:if="{{borderlineEI}}">内外向平衡 · 边界型</view>
+    </view>
+
+    <!-- N / S -->
+    <view class="dim-group">
+      <view class="dim-row">
+        <view class="dim-info dim-info-left">
+          <text class="dim-pole">直觉 N</text>
+          <text class="dim-pct">{{pN}}%</text>
+        </view>
+        <view class="dim-track">
+          <view class="dim-fill dim-fill-white" style="width:{{barN}}%"></view>
+          <view class="dim-fill dim-fill-dark" style="width:{{barS}}%"></view>
+        </view>
+        <view class="dim-info dim-info-right">
+          <text class="dim-pct">{{pS}}%</text>
+          <text class="dim-pole">实感 S</text>
+        </view>
+      </view>
+      <view class="dim-borderline" wx:if="{{borderlineSN}}">直觉实感平衡 · 边界型</view>
+    </view>
+
+    <!-- T / F -->
+    <view class="dim-group">
+      <view class="dim-row">
+        <view class="dim-info dim-info-left">
+          <text class="dim-pole">理性 T</text>
+          <text class="dim-pct">{{pT}}%</text>
+        </view>
+        <view class="dim-track">
+          <view class="dim-fill dim-fill-white" style="width:{{barT}}%"></view>
+          <view class="dim-fill dim-fill-dark" style="width:{{barF}}%"></view>
+        </view>
+        <view class="dim-info dim-info-right">
+          <text class="dim-pct">{{pF}}%</text>
+          <text class="dim-pole">情感 F</text>
+        </view>
+      </view>
+      <view class="dim-borderline" wx:if="{{borderlineTF}}">理性情感平衡 · 边界型</view>
+    </view>
+
+    <!-- J / P -->
+    <view class="dim-group">
+      <view class="dim-row">
+        <view class="dim-info dim-info-left">
+          <text class="dim-pole">判断 J</text>
+          <text class="dim-pct">{{pJ}}%</text>
+        </view>
+        <view class="dim-track">
+          <view class="dim-fill dim-fill-white" style="width:{{barJ}}%"></view>
+          <view class="dim-fill dim-fill-dark" style="width:{{barP}}%"></view>
+        </view>
+        <view class="dim-info dim-info-right">
+          <text class="dim-pct">{{pP}}%</text>
+          <text class="dim-pole">感知 P</text>
+        </view>
+      </view>
+      <view class="dim-borderline" wx:if="{{borderlineJP}}">判断感知平衡 · 边界型</view>
+    </view>
+  </view>
+
+  <!-- AI Impression -->
+  <view class="impression fade-in d2">
+    <view class="impr-header">
+      <view class="impr-avatar">知</view>
+      <text class="impr-label">知聊对你的印象</text>
+    </view>
+    <text class="impr-text">{{impression}}</text>
+  </view>
+
+  <!-- Disclaimer -->
+  <text class="disclaimer fade-in d3">AI 测试结果仅供参考</text>
+
+  <!-- Actions -->
+  <view class="actions fade-in d4">
+    <view class="btn-primary" bindtap="goToDetail">查看完整报告</view>
+    <view class="btn-row">
+      <view class="btn-secondary" bindtap="shareResult">生成分享图</view>
+      <button class="btn-secondary-share" open-type="share">分享给朋友</button>
+    </view>
+    <view class="btn-secondary btn-block" bindtap="goHome">返回主页</view>
+  </view>
+
+  <!-- Hidden Canvas -->
+  <canvas type="2d" id="shareCanvas" class="share-canvas"></canvas>
+
+  <!-- Share Preview Overlay -->
+  <view class="share-preview-mask" wx:if="{{showSharePreview}}" bindtap="closeSharePreview">
+    <view class="share-preview-card" catchtap="noop">
+      <image src="{{shareImagePath}}" class="share-preview-img" mode="widthFix"></image>
+      <view class="share-preview-btns">
+        <view class="sp-btn sp-btn-save" bindtap="saveShareImage">保存到相册</view>
+        <view class="sp-btn sp-btn-cancel" bindtap="closeSharePreview">关闭</view>
+      </view>
+    </view>
+  </view>
+
+</view>
