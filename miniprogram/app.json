@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/guide/guide",
+    "pages/hall/hall",
+    "pages/chat/chat",
+    "pages/quiz/quiz",
+    "pages/quiz-select/quiz-select",
+    "pages/quiz100/quiz100",
+    "pages/result/result",
+    "pages/detail/detail",
+    "pages/fullreport/fullreport",
+    "pages/report/report",
+    "pages/mine/mine",
+    "pages/privacy/privacy"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#F2F2F7",
+    "pageOrientation": "portrait"
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}
