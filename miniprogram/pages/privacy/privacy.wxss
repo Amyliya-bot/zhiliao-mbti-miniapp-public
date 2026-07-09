@@ -1,0 +1,57 @@
+.privacy-nav {
+  height: 88rpx;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #F2F2F7;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-back {
+  position: absolute;
+  left: 24rpx;
+  font-size: 56rpx;
+  color: #1C1C1E;
+  padding: 8rpx 16rpx;
+  font-weight: 300;
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1C1C1E;
+}
+
+.privacy-scroll {
+  flex: 1;
+  padding: 0;
+  background: #FFFFFF;
+}
+
+.privacy-content {
+  padding: 40rpx 40rpx 96rpx;
+  background: #FFFFFF;
+}
+
+.section-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1C1C1E;
+  margin-top: 40rpx;
+  margin-bottom: 16rpx;
+}
+
+.section-title:first-child {
+  margin-top: 0;
+}
+
+.section-text {
+  display: block;
+  font-size: 26rpx;
+  color: #3A3A3C;
+  line-height: 1.75;
+  margin-bottom: 12rpx;
+}
