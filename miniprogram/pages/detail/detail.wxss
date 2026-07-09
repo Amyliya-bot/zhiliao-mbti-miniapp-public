@@ -1,0 +1,398 @@
+/* 详细报告页 — 纯CSS环形 + 水平滑动 + 手风琴 + 编辑式排版 */
+
+/* ==================== Header ==================== */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.88);
+  padding: 96rpx 40rpx 24rpx;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.back-btn { font-size: 60rpx; color: #1C1C1E; font-weight: 200; padding: 0 16rpx; line-height: 1; }
+.header-title { font-size: 26rpx; color: #8E8E93; font-weight: 500; letter-spacing: 2rpx; }
+.header-actions { display: flex; gap: 16rpx; }
+.header-icon {
+  width: 64rpx; height: 64rpx; border-radius: 50%; background: #F2F2F7;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28rpx; color: #1C1C1E;
+}
+
+/* ==================== Scroll ==================== */
+.detail-scroll { flex: 1; overflow-y: auto; }
+
+/* ==================== Hero ==================== */
+.hero {
+  display: flex; align-items: center; gap: 40rpx;
+  padding: 48rpx 48rpx 40rpx;
+}
+.hero-badge-wrap { flex-shrink: 0; position: relative; }
+.hero-badge {
+  width: 180rpx; height: 180rpx; border-radius: 48rpx;
+  background: #1C1C1E; color: #FFFFFF;
+  font-size: 52rpx; font-weight: 900; letter-spacing: 6rpx;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  opacity: 0;
+  animation: badgeSlide 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s forwards;
+}
+@keyframes badgeSlide {
+  from { opacity: 0; transform: translateX(-60rpx); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.hero-badge-ring {
+  position: absolute; top: -12rpx; left: -12rpx;
+  width: 204rpx; height: 204rpx; border-radius: 56rpx;
+  border: 4rpx dashed rgba(28,28,30,0.12);
+  animation: ringSpin 20s linear infinite; pointer-events: none;
+}
+@keyframes ringSpin { to { transform: rotate(360deg); } }
+.hero-info { flex: 1; min-width: 0; }
+.hero-name {
+  font-size: 56rpx; font-weight: 800; color: #1C1C1E;
+  display: block; margin-bottom: 8rpx;
+  opacity: 0; animation: fadeUp 0.5s ease 0.2s forwards;
+}
+.hero-name-sub {
+  font-size: 26rpx; color: #8E8E93; font-weight: 400;
+  display: block; margin-bottom: 16rpx;
+  opacity: 0; animation: fadeUp 0.5s ease 0.28s forwards;
+}
+.hero-tags { display: flex; gap: 16rpx; flex-wrap: wrap; }
+.hero-tag {
+  font-size: 22rpx; padding: 10rpx 28rpx; border-radius: 24rpx; font-weight: 500;
+  opacity: 0;
+}
+.hero-tag.t1 { background: #1C1C1E; color: #fff; animation: fadeUp 0.5s ease 0.36s forwards; }
+.hero-tag.t2 { background: #F2F2F7; color: #636366; animation: fadeUp 0.5s ease 0.44s forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(24rpx); } }
+
+/* ==================== Section Bar ==================== */
+.sec-bar {
+  display: flex; align-items: center; gap: 20rpx;
+  margin-bottom: 32rpx;
+}
+.sec-bar-padded { margin-left: 48rpx; margin-right: 48rpx; }
+.sec-bar-line { flex: 1; height: 2rpx; background: #F2F2F7; }
+.sec-bar-label { font-size: 22rpx; color: #8E8E93; letter-spacing: 6rpx; text-transform: uppercase; flex-shrink: 0; }
+
+/* ==================== Reveal Transitions ==================== */
+.dim-reveal, .imp-reveal, .traits-reveal, .acc-reveal,
+.acc2-reveal, .career-reveal, .info-reveal {
+  opacity: 0; transform: translateY(60rpx);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.dim-reveal.visible, .imp-reveal.visible, .traits-reveal.visible,
+.acc-reveal.visible, .acc2-reveal.visible, .career-reveal.visible,
+.info-reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ==================== Ring Dimensions — Pure CSS Donut ==================== */
+.dim-section { margin: 0 0 40rpx; }
+.dim-rings { display: flex; justify-content: space-around; padding: 0 28rpx; gap: 8rpx; }
+.dim-ring-item {
+  display: flex; flex-direction: column; align-items: center; gap: 10rpx;
+}
+
+/* Ring wrapper — 156rpx outer size */
+.ring-wrap {
+  width: 156rpx; height: 156rpx;
+  position: relative;
+}
+
+/* Gray track (full circle background) */
+.ring-bg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: #F2F2F7;
+}
+
+/* Fill — conic-gradient pie slice, sweeps clockwise from 12 o'clock */
+.ring-fill {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+}
+
+/* Center hole — white circle overlay to create donut effect */
+.ring-hole {
+  position: absolute;
+  top: 16rpx; left: 16rpx;
+  width: calc(100% - 32rpx);
+  height: calc(100% - 32rpx);
+  border-radius: 50%;
+  background: #FFFFFF;
+  z-index: 1;
+}
+
+/* Center letter */
+.ring-letter {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36rpx; font-weight: 900;
+  color: #1C1C1E;
+  z-index: 2;
+}
+
+/* Ring label and percentage below */
+.ring-label {
+  font-size: 20rpx; color: #8E8E93; font-weight: 500; text-align: center; line-height: 1.4;
+  max-width: 170rpx;
+}
+.ring-pct {
+  font-size: 28rpx; font-weight: 800; color: #1C1C1E;
+}
+
+/* ==================== Impression ==================== */
+.imp-section { margin: 0 0 40rpx; }
+.imp-quote {
+  font-size: 120rpx; color: #F2F2F7; font-family: Georgia, serif;
+  line-height: 0.4; display: block; padding-left: 40rpx;
+}
+.imp-text-wrap {
+  margin-left: 48rpx; margin-right: 48rpx;
+  padding: 0 48rpx;
+  border-left: 6rpx solid #1C1C1E;
+}
+.imp-text {
+  font-size: 30rpx; color: #3A3A3C; line-height: 1.8; font-weight: 400;
+}
+
+/* ==================== Traits Horizontal Scroll ==================== */
+.traits-section { margin: 0 0 40rpx; }
+.traits-scroll {
+  display: flex; flex-direction: row; flex-wrap: nowrap;
+  white-space: nowrap; padding: 8rpx 48rpx 24rpx;
+}
+.trait-slide {
+  flex: 0 0 420rpx; width: 420rpx;
+  background: #FFFFFF; border-radius: 36rpx;
+  padding: 36rpx 32rpx; border: 2rpx solid #F2F2F7;
+  margin-right: 24rpx; display: inline-block;
+  white-space: normal; vertical-align: top;
+}
+.trait-slide:first-child { border-color: #D1D1D6; background: #FAFAFA; }
+.trait-num {
+  font-size: 72rpx; font-weight: 900; color: #F2F2F7;
+  display: block; line-height: 1; margin-bottom: 16rpx;
+}
+.trait-text { font-size: 26rpx; color: #3A3A3C; line-height: 1.65; font-weight: 500; }
+
+.traits-dots { display: flex; justify-content: center; gap: 12rpx; margin-top: 8rpx; }
+.t-dot {
+  width: 12rpx; height: 12rpx; border-radius: 50%; background: #E5E5EA;
+  transition: all 0.3s;
+}
+.t-dot.active { background: #1C1C1E; width: 36rpx; border-radius: 6rpx; }
+
+/* ==================== Accordion ==================== */
+.acc-section { margin: 0 0 32rpx; }
+.acc-item {
+  margin: 0 48rpx 16rpx; background: #FFFFFF;
+  border-radius: 32rpx; border: 2rpx solid #F2F2F7; overflow: hidden;
+}
+.acc-item.strength { border-left: 8rpx solid #1C1C1E; }
+.acc-item.weakness { border-left: 8rpx solid #E5E5EA; }
+.acc-header {
+  padding: 28rpx 32rpx; display: flex; align-items: center;
+  justify-content: space-between;
+}
+.acc-header:active { background: #F8F8FA; }
+.acc-title { font-size: 28rpx; font-weight: 600; color: #1C1C1E; flex: 1; }
+.acc-icon {
+  font-size: 32rpx; color: #C7C7CC; font-weight: 300;
+  flex-shrink: 0; margin-left: 16rpx; transition: transform 0.3s;
+}
+.acc-icon.open { transform: rotate(180deg); }
+.acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.acc-body.expanded { max-height: 400rpx; }
+.acc-content {
+  display: block; padding: 0 32rpx 28rpx;
+  font-size: 26rpx; color: #636366; line-height: 1.7;
+}
+
+/* ==================== Career ==================== */
+.career-section { margin: 0 0 40rpx; }
+.career-chips {
+  display: flex; flex-wrap: wrap; gap: 16rpx;
+  padding: 0 48rpx; margin-bottom: 32rpx;
+}
+.career-chip {
+  font-size: 24rpx; padding: 16rpx 28rpx; border-radius: 32rpx; font-weight: 500;
+}
+.career-chip.c0 { background: #1C1C1E; color: #fff; font-size: 26rpx; padding: 18rpx 32rpx; }
+.career-chip.c1 { background: #3A3A3C; color: #fff; }
+.career-chip.c2 { background: #636366; color: #fff; }
+.career-chip.c3 { background: #8E8E93; color: #fff; }
+.career-chip.c4 { background: #C7C7CC; color: #1C1C1E; }
+.career-chip.c5, .career-chip.c6, .career-chip.c7 { background: #F2F2F7; color: #636366; }
+
+.career-callout { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; padding: 0 48rpx; }
+.callout { border-radius: 28rpx; padding: 28rpx 24rpx; }
+.callout.avoid { background: #FFF5F5; border: 2rpx solid #FFE0E0; }
+.callout.tip { background: #F5F8FF; border: 2rpx solid #E0EAFF; }
+.callout-label { font-size: 24rpx; font-weight: 700; display: block; margin-bottom: 12rpx; }
+.callout.avoid .callout-label { color: #C44; }
+.callout.tip .callout-label { color: #47A; }
+.callout-text { font-size: 22rpx; line-height: 1.6; }
+.callout.avoid .callout-text { color: #8B4A4A; }
+.callout.tip .callout-text { color: #4A6A8B; }
+
+/* ==================== Social + Growth ==================== */
+.info-section {
+  margin: 0 48rpx 24rpx; display: grid;
+  grid-template-columns: 1fr 1fr; gap: 24rpx;
+}
+.info-card {
+  background: #FFFFFF; border-radius: 40rpx; padding: 36rpx 28rpx;
+  border: 2rpx solid #F2F2F7;
+}
+.info-card:active { background: #F8F8FA; }
+.info-icon-text { font-size: 40rpx; display: block; margin-bottom: 16rpx; }
+.info-title { font-size: 28rpx; font-weight: 700; color: #1C1C1E; display: block; margin-bottom: 16rpx; }
+.info-text {
+  font-size: 22rpx; color: #636366; line-height: 1.65;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+.info-hint { font-size: 20rpx; color: #C7C7CC; margin-top: 16rpx; display: block; }
+
+/* ==================== Bottom Buttons ==================== */
+.btn-row {
+  margin: 0 48rpx; padding: 24rpx 0 60rpx;
+  display: flex; flex-direction: column; gap: 20rpx;
+  opacity: 0; transform: translateY(40rpx);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-row.visible { opacity: 1; transform: translateY(0); }
+.btn-share {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 32rpx;
+  background: #1C1C1E; border: none; border-radius: 32rpx;
+}
+.btn-share::after { border: none; }
+.btn-share-text { color: #FFFFFF; font-size: 30rpx; font-weight: 600; }
+.btn-share:active { opacity: 0.8; }
+.btn-home {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 32rpx;
+  background: #FFFFFF; color: #1C1C1E;
+  border: 2rpx solid #E5E5EA; border-radius: 32rpx;
+  font-size: 30rpx; font-weight: 600;
+}
+.btn-home::after { border: none; }
+.btn-home:active { background: #F2F2F7; }
+.btn-disc { text-align: center; color: #C7C7CC; font-size: 22rpx; display: block; }
+
+/* ==================== Bottom Sheet ==================== */
+.sheet-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35); z-index: 200;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.sheet-overlay.show { opacity: 1; pointer-events: auto; }
+.bottom-sheet {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  background: #FFFFFF; border-radius: 56rpx 56rpx 0 0;
+  padding: 40rpx 48rpx 120rpx; z-index: 210;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  max-height: 70vh; display: flex; flex-direction: column;
+}
+.bottom-sheet.show { transform: translateY(0); }
+.bottom-sheet.closing { transform: translateY(100%); }
+.sheet-handle-wrap { display: flex; justify-content: center; padding: 0 0 40rpx; }
+.sheet-handle { width: 96rpx; height: 10rpx; background: #E5E5EA; border-radius: 6rpx; }
+.sheet-title { font-size: 40rpx; font-weight: 700; color: #1C1C1E; display: block; margin-bottom: 40rpx; flex-shrink: 0; }
+.sheet-body { flex: 1; }
+.sheet-text { font-size: 28rpx; color: #636366; line-height: 1.8; }
+.sheet-bullet { font-size: 28rpx; color: #636366; line-height: 1.9; display: block; }
+
+/* Hidden canvas */
+.share-canvas {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 500px;
+  height: 3000px;
+}
+
+/* Reset button styles for open-type="share" */
+.btn-share-native {
+  border: 2rpx solid #E5E5EA;
+  background: #FFFFFF;
+  padding: 0;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-share-native::after {
+  border: none;
+}
+
+/* Share Preview Overlay */
+.share-preview-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-preview-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1C1C1E;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  max-width: 85vw;
+  max-height: 80vh;
+}
+
+.share-preview-img {
+  width: 500rpx;
+  max-height: 60vh;
+  border-radius: 16rpx;
+}
+
+.share-preview-btns {
+  display: flex;
+  gap: 28rpx;
+  margin-top: 44rpx;
+}
+
+.sp-btn {
+  padding: 22rpx 52rpx;
+  border-radius: 48rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.sp-btn-save {
+  background: #FFFFFF;
+  color: #1C1C1E;
+}
+
+.sp-btn-save:active {
+  transform: scale(0.96);
+}
+
+.sp-btn-cancel {
+  border: 2rpx solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+}
+
+.sp-btn-cancel:active {
+  background: rgba(255,255,255,0.08);
+}
