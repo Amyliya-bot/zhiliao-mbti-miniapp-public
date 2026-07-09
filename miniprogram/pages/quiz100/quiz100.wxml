@@ -1,0 +1,53 @@
+<!-- 100题深度测试页 -->
+
+<view class="page-wrap">
+
+  <view class="status-spacer"></view>
+
+  <!-- Nav -->
+  <view class="quiz-nav">
+    <view class="nav-back" bindtap="goBack">‹</view>
+    <text class="nav-title">深度测试 · 100题</text>
+  </view>
+
+  <!-- Quiz Area -->
+  <view class="flex-1 flex-col">
+
+    <!-- Progress -->
+    <view class="quiz-progress">
+      <view class="progress-top">
+        <text class="progress-label">已答 {{answeredCount}}/100 题</text>
+        <text class="progress-pct">{{pct}}%</text>
+      </view>
+      <view class="progress-track"><view class="progress-track-fill" style="width:{{pct}}%"></view></view>
+    </view>
+
+    <!-- Question -->
+    <view class="flex-1 scroll-content" style="padding:40rpx;padding-bottom:32rpx">
+      <view class="question-area">
+        <text class="question-text">{{questions[current].q}}</text>
+        <view class="options">
+          <view class="option-btn {{selected[current] === 0 ? 'selected' : ''}}" catchtap="select" data-opt="0">
+            <view class="option-letter">A</view>
+            <text class="option-text">{{questions[current].a}}</text>
+          </view>
+          <view class="option-btn {{selected[current] === 1 ? 'selected' : ''}}" catchtap="select" data-opt="1">
+            <view class="option-letter">B</view>
+            <text class="option-text">{{questions[current].b}}</text>
+          </view>
+          <view class="option-btn {{selected[current] === 2 ? 'selected' : ''}}" catchtap="select" data-opt="2">
+            <view class="option-letter">C</view>
+            <text class="option-text">{{questions[current].c}}</text>
+          </view>
+        </view>
+        <text class="quiz-error {{showError ? 'visible' : ''}}">请先答完这道题</text>
+        <view class="nav-btns">
+          <button class="nav-btn {{current === 0 ? 'disabled' : ''}}" disabled="{{current === 0}}" bindtap="prevQ">← 上一题</button>
+          <button class="nav-btn primary" bindtap="nextQ">{{btnText}}</button>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+</view>
