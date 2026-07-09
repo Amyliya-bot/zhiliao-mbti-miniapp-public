@@ -1,0 +1,133 @@
+<!-- 首页 - 知聊MBTI对话测试 -->
+<view class="page-wrap">
+
+  <view class="status-spacer"></view>
+
+  <!-- Header -->
+  <view class="hall-header">
+    <text class="greeting-title">知聊<text class="greeting-sub">MBTI对话测试</text></text>
+    <text class="greeting-desc">跟我随便聊聊，了解你的性格</text>
+  </view>
+
+  <!-- Content -->
+  <scroll-view scroll-y="true" class="hall-scroll">
+
+    <!-- Test Mode Selection -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">选择测试方式</text>
+        <text class="section-badge">二选一</text>
+      </view>
+      <view class="entry-list">
+
+        <!-- AI Chat Entry -->
+        <view class="entry-card tap-active {{dailyRemaining <= 0 ? 'disabled' : ''}}" bindtap="goToChat">
+          <view class="entry-icon chat-icon-wrap">
+            <view class="bubble-body">
+              <view class="dot dot-1 {{dotAnim ? 'bounce' : ''}}"></view>
+              <view class="dot dot-2 {{dotAnim ? 'bounce' : ''}}"></view>
+              <view class="dot dot-3 {{dotAnim ? 'bounce' : ''}}"></view>
+            </view>
+          </view>
+          <view class="entry-text">
+            <text class="entry-title">AI 对话测试 <text class="entry-badge">沉浸版</text></text>
+            <text class="entry-desc">约 20 轮对话 · AI 在聊天中分析你</text>
+            <text class="entry-limit">今日剩余 {{dailyRemaining}}/3 次</text>
+          </view>
+          <view class="entry-arrow">›</view>
+        </view>
+        <view class="entry-rules-link tap-active" bindtap="showRules">查看对话规则与建议 ›</view>
+
+        <!-- Quiz Entry -->
+        <view class="entry-card tap-active" bindtap="goToQuiz">
+          <view class="entry-icon pencil-icon-wrap">
+            <view class="pencil-outer {{pencilAnim ? 'swing' : ''}}">
+              <view class="pencil-eraser"></view>
+              <view class="pencil-body">
+                <view class="pencil-stripe"></view>
+                <view class="pencil-stripe stripe-2"></view>
+              </view>
+              <view class="pencil-tip"></view>
+              <view class="pencil-point"></view>
+            </view>
+          </view>
+          <view class="entry-text">
+            <text class="entry-title">传统选项测试 <text class="entry-badge">自选</text></text>
+            <text class="entry-desc">可选 40 题或 100 题 · 5-15 分钟出结果</text>
+          </view>
+          <view class="entry-arrow">›</view>
+        </view>
+
+      </view>
+    </view>
+
+    <!-- Recent Reports -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">最近报告</text>
+        <text class="section-badge">测试记录</text>
+      </view>
+      <text class="recent-limit-hint" wx:if="{{hasHistory}}">仅显示最近 30 条记录</text>
+
+      <!-- Empty -->
+      <view class="recent-empty" wx:if="{{!hasHistory}}">
+        <text class="recent-empty-text">还没有记录，去聊聊吧</text>
+      </view>
+
+      <!-- Scrollable list -->
+      <view class="recent-list" wx:else>
+        <view class="recent-item-wrap" wx:for="{{recentReports}}" wx:key="_id">
+          <view class="recent-delete-btn" bindtap="deleteRecent" data-index="{{index}}">删除</view>
+          <view
+            class="recent-item {{item.swiped ? 'swiped' : ''}}"
+            bindtouchstart="onRecentTouchStart"
+            catchtouchmove="onRecentTouchMove"
+            bindtouchend="onRecentTouchEnd"
+            data-index="{{index}}"
+          >
+            <view class="recent-type-badge">{{item.type}}</view>
+            <view class="recent-info">
+              <text class="recent-name">"{{item.name}}"</text>
+              <text class="recent-date">{{item.date}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  <!-- Tab Bar -->
+  <include src="../../templates/tabbar.wxml"/>
+
+  <!-- Limit Toast -->
+  <view class="limit-toast {{limitToast ? 'show' : ''}}">今日AI对话次数已用完，明天再来吧</view>
+
+  <!-- Rules Bottom Sheet -->
+  <view class="rules-overlay {{showRules ? '' : 'hidden'}} {{rulesClosing ? 'closing' : ''}}" bindtap="hideRules">
+    <view class="rules-sheet" catchtap="">
+      <view class="rules-handle"></view>
+      <text class="rules-title">AI 对话说明</text>
+      <view class="rules-body">
+        <view class="rules-item">
+          <text class="rules-label">次数限制</text>
+          <text class="rules-text">每日 3 次对话机会，每天 0 点自动重置。次数有限是为了保证 AI 服务质量和公平使用，避免资源被过度占用。</text>
+        </view>
+        <view class="rules-item">
+          <text class="rules-label">计次规则</text>
+          <text class="rules-text">点击进入对话页面后即算一次使用，无论是否完成全部对话。请在网络稳定、时间充足时开启。</text>
+        </view>
+        <view class="rules-item">
+          <text class="rules-label">对话建议</text>
+          <text class="rules-text">把 AI 当成一个普通朋友，像平常聊天一样自然地表达自己就好。不用拘谨，不用刻意，越真实越能得到准确的分析结果。</text>
+        </view>
+        <view class="rules-item">
+          <text class="rules-label">数据隐私</text>
+          <text class="rules-text">对话内容仅用于本次性格分析，系统不会保留你的聊天记录。分析完成后对话数据即被清除。</text>
+        </view>
+      </view>
+      <text class="rules-disclaimer">※ 测试结果仅供娱乐参考，不构成专业心理评估</text>
+      <view class="rules-close" bindtap="hideRules">知道了</view>
+    </view>
+  </view>
+</view>
