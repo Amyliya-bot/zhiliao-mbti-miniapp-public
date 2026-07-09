@@ -1,0 +1,106 @@
+<!-- 引导页 - 知聊MBTI对话测试 -->
+<view class="page-wrap">
+
+  <!-- Slides -->
+  <swiper class="swiper" current="{{cur}}" bindchange="onSwiperChange" duration="300">
+    <!-- Slide 0: 认识知聊 -->
+    <swiper-item class="slide-item">
+      <view class="slide flex-col items-center justify-center">
+        <view class="fade-up-wrap">
+          <view class="logo">知</view>
+          <text class="slide-title">你好，我是\n知聊</text>
+          <text class="slide-desc">一个想了解你的 AI 伙伴\n跟我聊聊天\n我就能读懂你的性格</text>
+        </view>
+        <view class="scroll-hint">↓</view>
+      </view>
+    </swiper-item>
+
+    <!-- Slide 1: 三步玩法 -->
+    <swiper-item class="slide-item">
+      <view class="slide flex-col items-center justify-center">
+        <view class="slide-header fade-up">
+          <text class="slide-title-sm">只需三步</text>
+          <text class="slide-desc-sm">像跟朋友聊天一样简单</text>
+        </view>
+        <view class="step-list">
+          <view class="step-card fade-up d1">
+            <view class="step-num">1</view>
+            <view class="step-text">
+              <text class="step-label">开始对话</text>
+              <text class="step-desc">AI 发起场景话题，你自然回答</text>
+            </view>
+          </view>
+          <view class="step-card fade-up d2">
+            <view class="step-num" style="background:#3A3A3C">2</view>
+            <view class="step-text">
+              <text class="step-label">聊 20 轮</text>
+              <text class="step-desc">4 个生活场景，轻松随意聊</text>
+            </view>
+          </view>
+          <view class="step-card fade-up d3">
+            <view class="step-num" style="background:#636366">3</view>
+            <view class="step-text">
+              <text class="step-label">获得 MBTI 结果</text>
+              <text class="step-desc">AI 实时分析，生成你的人格报告</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+
+    <!-- Slide 2: 小贴士 + 开始 -->
+    <swiper-item class="slide-item">
+      <view class="slide flex-col items-center justify-center">
+        <view class="slide-header fade-up">
+          <text class="slide-title-sm">两个小建议</text>
+          <text class="slide-desc-sm">让结果更准确</text>
+        </view>
+        <view class="tip-list fade-up d1">
+          <view class="tip-card">
+            <text class="tip-icon">✨</text>
+            <text class="tip-label">没有对错</text>
+            <text class="tip-desc">真实回答就好，越真实越准</text>
+          </view>
+          <view class="tip-card">
+            <text class="tip-icon">🎯</text>
+            <text class="tip-label">不用多想</text>
+            <text class="tip-desc">第一反应最真实，别"演"给自己看</text>
+          </view>
+        </view>
+        <view class="start-area fade-up d3">
+          <button class="start-btn" bindtap="goToHall" style="position: relative; left: -2rpx; top: -4rpx; width: 583rpx; height: 129rpx; display: block; box-sizing: border-box">开始对话</button>
+          <text class="teaser-text">"想知道你的性格隐藏什么秘密吗？免费测试，即将开始"</text>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- Dots -->
+  <view class="dots-wrap">
+    <view wx:for="{{3}}" wx:key="index" class="dot {{cur === index ? 'active' : ''}}" data-i="{{index}}" bindtap="goToSlide"></view>
+  </view>
+
+  <!-- Skip -->
+  <view class="skip-btn" bindtap="goToHall">跳过</view>
+
+  <!-- Privacy Agreement Modal -->
+  <view class="privacy-mask" wx:if="{{showPrivacy}}">
+    <view class="privacy-modal">
+      <text class="privacy-modal-title">用户协议和隐私政策</text>
+      <text class="privacy-modal-text">欢迎使用知聊！在开始之前，请你仔细阅读并同意以下内容：</text>
+      <view class="privacy-modal-list">
+        <text class="privacy-modal-item">· 我们会将你的测试记录保存到云端，方便你在不同设备查看</text>
+        <text class="privacy-modal-item">· AI 对话内容仅用于当次人格分析，不会长期保存</text>
+        <text class="privacy-modal-item">· 我们不会向任何第三方分享你的个人信息</text>
+        <text class="privacy-modal-item">· 你可以随时在"我的"页面删除所有记录</text>
+      </view>
+      <view class="privacy-modal-links">
+        <text class="privacy-link" bindtap="openPrivacy">查看完整《隐私政策》</text>
+      </view>
+      <view class="privacy-modal-btns">
+        <view class="privacy-btn decline" bindtap="declinePrivacy">不同意并退出</view>
+        <view class="privacy-btn agree" bindtap="agreePrivacy">同意并继续</view>
+      </view>
+    </view>
+  </view>
+</view>
