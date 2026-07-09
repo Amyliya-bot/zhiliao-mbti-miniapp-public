@@ -1,0 +1,28 @@
+<!-- Tab Bar -->
+<view class="tabbar">
+  <view class="tab-item {{tabActive === 'hall' ? 'active' : ''}}" bindtap="switchTab" data-url="/pages/hall/hall">
+    <view class="tab-icon tab-home">
+      <view class="home-roof"></view>
+      <view class="home-body"></view>
+    </view>
+    <text class="tab-label">首页</text>
+    <view class="tab-indicator"></view>
+  </view>
+  <view class="tab-item {{tabActive === 'report' ? 'active' : ''}}" bindtap="switchTab" data-url="/pages/report/report">
+    <view class="tab-icon tab-report">
+      <view class="report-bar short"></view>
+      <view class="report-bar mid"></view>
+      <view class="report-bar tall"></view>
+    </view>
+    <text class="tab-label">报告</text>
+    <view class="tab-indicator"></view>
+  </view>
+  <view class="tab-item {{tabActive === 'mine' ? 'active' : ''}}" bindtap="switchTab" data-url="/pages/mine/mine">
+    <view class="tab-icon tab-mine">
+      <view class="mine-head"></view>
+      <view class="mine-body"></view>
+    </view>
+    <text class="tab-label">我的</text>
+    <view class="tab-indicator"></view>
+  </view>
+</view>
