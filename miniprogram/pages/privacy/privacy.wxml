@@ -1,0 +1,48 @@
+<!-- 隐私政策页 -->
+<view class="page-wrap">
+
+  <view class="status-spacer"></view>
+
+  <view class="privacy-nav">
+    <view class="nav-back" bindtap="goBack">‹</view>
+    <text class="nav-title">隐私政策</text>
+  </view>
+
+  <scroll-view scroll-y class="privacy-scroll">
+    <view class="privacy-content">
+      <text class="section-title">一、我们收集的信息</text>
+      <text class="section-text">知聊 MBTI 对话测试（以下简称"本小程序"）会在你使用以下功能时收集必要信息：</text>
+      <text class="section-text">1. 测试记录：完成 MBTI 测试后，我们会将你的测试结果（人格类型、各维度得分、测试日期）存储至云端数据库，供你在历史记录中查看和回顾。</text>
+      <text class="section-text">2. 对话内容：进行 AI 对话测试时，你的每轮聊天内容会发送至 AI 服务进行人格分析。对话数据仅用于当次分析，不会长期保存。</text>
+      <text class="section-text">3. 设备信息：我们不会主动收集你的设备标识、地理位置、通讯录等任何个人敏感信息。</text>
+
+      <text class="section-title">二、信息的使用方式</text>
+      <text class="section-text">1. 测试结果用于生成本地的人格报告和维度分析。</text>
+      <text class="section-text">2. 云端存储仅用于跨设备同步你的测试历史记录，方便你在更换设备后查看过往结果。</text>
+      <text class="section-text">3. 我们不会将你的任何个人信息出售、转让或共享给任何第三方。</text>
+
+      <text class="section-title">三、信息的存储与安全</text>
+      <text class="section-text">1. 测试记录存储在微信云开发数据库中，采用微信官方安全机制进行保护。</text>
+      <text class="section-text">2. 历史记录最多保留 30 条，超出后自动删除最早的记录。</text>
+      <text class="section-text">3. 你可以随时在"测试记录"页面手动删除任意历史记录，删除后云端数据同步清除。</text>
+
+      <text class="section-title">四、用户权利</text>
+      <text class="section-text">1. 你可以在"我的"页面随时查看和删除你的测试记录。</text>
+      <text class="section-text">2. 你可以拒绝本隐私政策，但拒绝后将无法使用 AI 对话测试和测试记录保存功能。</text>
+      <text class="section-text">3. 如需完全清除所有数据，可联系开发者进行数据删除。</text>
+
+      <text class="section-title">五、免责声明</text>
+      <text class="section-text">1. 本小程序提供的 MBTI 测试结果仅供娱乐参考，不构成任何专业心理评估或诊断。</text>
+      <text class="section-text">2. 如果你有心理健康方面的疑虑，请咨询专业心理医生或医疗机构。</text>
+
+      <text class="section-title">六、政策更新</text>
+      <text class="section-text">本隐私政策可能根据业务发展和法律法规要求进行调整。更新后的政策将在本页面发布，无需另行通知。</text>
+
+      <text class="section-title">七、联系方式</text>
+      <text class="section-text">如对本隐私政策有任何疑问，可通过微信小程序内的反馈渠道联系开发者。</text>
+
+      <text class="section-text" style="margin-top:32rpx;color:#C7C7CC;text-align:center">更新日期：2026年5月29日</text>
+    </view>
+  </scroll-view>
+
+</view>
